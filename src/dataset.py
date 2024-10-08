@@ -2,6 +2,7 @@ import pyprind
 import pandas as pd
 import os
 import sys
+import numpy as np
 
 file_path = "../data/external/aclImdb"
 
@@ -20,3 +21,7 @@ for s in ("test", "train"):
 
 # Convert the list into a DataFrame
 df = pd.DataFrame(data, columns=["review", "sentiment"])
+
+np.random.seed(0)
+df = df.reindex(np.random.permutation(df.index))
+df.to_csv("../data/processed/movie_data.csv", index=False, encoding="utf-8")
